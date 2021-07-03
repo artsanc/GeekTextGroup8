@@ -19,7 +19,8 @@
   "homepage": "https://github.com/artsanc/GeekTextGroup8#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "hapi": "^18.1.0"
+    "hapi": "^18.1.0",
+    "pg": "^8.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
