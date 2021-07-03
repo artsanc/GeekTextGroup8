@@ -2,7 +2,7 @@ var express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const { Client } = require("pg");
-const pw = "";
+const pw = "SinghisKing316!";
 const connectionString =
   "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
@@ -10,11 +10,11 @@ const client = new Client({
   connectionString: connectionString
 });
 
-client.connect();
+client.connect(); 
 
 app.listen(port);
 
-app.get("/", function(req, res) {
+app.get("/wishlist", function(req, res) {
   client.query("SELECT * FROM Employee where id = $1", [1], function(
     err,
     result
@@ -24,7 +24,8 @@ app.get("/", function(req, res) {
       res.status(400).send(err);
     }
     res.status(200).send(result.rows);
-  });
+  }); 
+
 });
 
 console.log("Server is running on port: " + port);
