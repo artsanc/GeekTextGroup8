@@ -2,7 +2,7 @@ var express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const { Client } = require("pg");
-const pw = "";
+const pw = "polk640320";
 const connectionString =
   "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
