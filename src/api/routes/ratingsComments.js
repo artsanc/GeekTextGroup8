@@ -1,8 +1,9 @@
 const express = require("express");
-const router = express.Router;
+const router = express.Router();
 
 router.get("/", async (req, res) => {
-  console.log("here!");
+  console.log("hola!");
+  res.send("in ratings and comments");
 });
 
 module.exports = router;
