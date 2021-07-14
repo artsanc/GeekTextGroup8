@@ -16,8 +16,6 @@ router.use("/book/ratingsComments", ratingsCommentsRoute);
 
 router.get("/", async (req, res) => {
   res.send("index");
-
-  console.log("here!");
 });
 
 module.exports = router;
