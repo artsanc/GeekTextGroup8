@@ -17,16 +17,16 @@ client.connect().then(() => {
 router.post("/", (req, res) => {
     console.log(req.body);
     client.query(
-        "call uspinsertuser('" +
+        "call uspinsertuser(" +
         req.body.email +
-        "', '" +
+        ", " +
         req.body.password +
-        "', '" +
+        ", " +
         req.body.f_name +
-        "', '" +
+        ", " +
         req.body.l_name +
-        "', '" +
-        req.body.address + "');",
+        ", " +
+        req.body.address + ");",
         function (err, result) {
             if (err) {
                 console.log(err);
@@ -43,7 +43,7 @@ router.post("/", (req, res) => {
 router.post("/getUser", (req, res) => {
     console.log(req.body);
     client.query(
-        "select * from udfretrieveuser('" + req.body.email + "');",
+        "select * from udfretrieveuser(" + req.body.email + ");",
         function (err, result) {
             if (err) {
                 console.log(err);
@@ -56,6 +56,71 @@ router.post("/getUser", (req, res) => {
     );
 });
 
-//
+//Update User
+router.patch("/", (req, res) => {
+    console.log(req.body);
+    client.query(
+        "call uspupdateuser(" +
+        req.body.email +
+        ", " +
+        req.body.password +
+        ", " +
+        req.body.f_name +
+        ", " +
+        req.body.l_name +
+        ", " +
+        req.body.address + ");",
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(200).send("Successfully updated User");
+            }
+        }
+    );
+});
+
+//Create Credit Card
+router.post("/addCard", (req, res) => {
+    console.log(req.body);
+    client.query(
+        "call uspinsertcard(" +
+        req.body.email +
+        ", " +
+        req.body.card_num +
+        ", " +
+        req.body.expiration_date +
+        ", " +
+        req.body.cvv + ");",
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(200).send("Successfully created Credit Card");
+            }
+        }
+    );
+});
+
+//Retrieve Credit Card
+router.post("/getCard", (req, res) => {
+    console.log(req.body);
+    client.query(
+        "select * from udfretrievecards(" + req.body.email + ");",
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err.message);
+            }
+            else {
+                res.status(200).send(result.rows);
+            }
+        }
+    );
+});
 
 module.exports = router;
