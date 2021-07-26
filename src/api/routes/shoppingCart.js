@@ -56,7 +56,7 @@ router.post("/", (req, res) => {
     function(err, result) {
       if (err) {
         console.log(err);
-        res.status(400).send(err);
+        res.status(400).send(err.detail);
       } else {
         res.status(200).send("Successfully created a Cart for User");
       }
@@ -80,7 +80,7 @@ router.post("/add", (req, res) => {
         console.log(err);
         res.status(400).send(err.detail);
       } else {
-        res.status(200).send("Successfully Created A Shopping Cart");
+        res.status(200).send("Successfully Added a Book to Shopping Cart");
       }
     }
   );
