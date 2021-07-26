@@ -4,14 +4,26 @@ const { Client } = require("pg");
 const pw = "6100325";
 
 const connectionString =
-  "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
+    "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
 const client = new Client({
-  connectionString: connectionString
+    connectionString: connectionString
 });
 client.connect().then(() => {
   console.log("i am connected to db");
 });
+
+function uuidv4() {
+    //bad uuid function need to switch uuid to include text
+    return new Date()
+        .getTime()
+        .toString()
+        .substring(0, 10);
+}
+
+function getTimestamp() {
+    return new Date();
+}
 
 //Retrieve Endpoint to get the list of books in the shopping cart
 router.post("/getCart", (req, res) => {
