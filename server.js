@@ -1,4 +1,5 @@
 var express = require("express");
+const bodyParser = require("body-parser")
 const app = express();
 const port = process.env.PORT || 3000;
 const { Client } = require("pg");
@@ -7,6 +8,8 @@ var indexRouter = require("./src/api/routes/index");
 
 app.use(express.json());
 app.use("/", indexRouter);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // const connectionString =
 //   "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
