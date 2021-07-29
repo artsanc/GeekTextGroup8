@@ -16,11 +16,26 @@ router.get("/", async(req, res) => {
     res.send("in ratingsComments");
 });
 
-//Retrieve Endpoint to get the list of comments and ratings
-router.post("/getRatings", async(req, res) => {
+//Retrieve Endpoint to get the list of comments and ratings for specified book
+router.post("/getReviews", async(req, res) => {
     console.log(req.body);
     client.query(
-        "SELECT * from ratings_comments where isbn = " + req.body.isbn,
+        "SELECT * from ratings_comments where isbn = " + req.body.isbn + "order by ratings desc",
+        function(err, result) {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            }
+            res.status(200).send(result.rows);
+        }
+    );
+});
+
+//Get average ratings of a specific book
+router.post("/getAverageRating", async(req, res) => {
+    console.log(req.body);
+    client.query(
+        "SELECT avg(ratings) from ratings_comments where isbn = " + req.body.isbn,
         function(err, result) {
             if (err) {
                 console.log(err);
