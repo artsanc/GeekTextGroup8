@@ -6,12 +6,12 @@ const pw = "polk640320";
 const connectionString =
   "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
-// const client = new Client({
-//     connectionString: connectionString
-// });
-// client.connect().then(() => {
-//     console.log("I am connected to the DB");
-// })
+const client = new Client({
+  connectionString: connectionString
+});
+client.connect().then(() => {
+  console.log("I am connected to the DB");
+});
 
 //Create User
 router.post("/", (req, res) => {

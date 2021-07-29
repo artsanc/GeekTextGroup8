@@ -101,7 +101,7 @@ router.delete("/", (req, res) => {
       } else {
         if (result.rowCount == 0) {
           let temp =
-            "Book with isbn = " +
+            "Book with isbn : " +
             req.body.isbn +
             " does not exist in cart " +
             req.body.cart_id;

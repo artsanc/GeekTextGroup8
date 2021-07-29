@@ -6,10 +6,10 @@ const pw = "Backend35";
 const connectionString =
   "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
-// const client = new Client({
-//   connectionString: connectionString
-// })
-// client.connect();
+const client = new Client({
+  connectionString: connectionString
+});
+client.connect();
 
 router.get("/", async (req, res) => {
   console.log("hello");
