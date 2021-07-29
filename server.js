@@ -1,20 +1,20 @@
 var express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
-const { Client } = require("pg");
-const pw = "6100325";
-var indexRouter = require("./src/api/routes/index");
+ const { Client } = require("pg");
+const pw = "0105.Eenajved";
+ var indexRouter = require("./src/api/routes/index");
 
-app.use(express.json());
+ app.use(express.json());
 app.use("/", indexRouter);
-// const connectionString =
-//   "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
+const connectionString =
+  "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
-// const client = new Client({
-//   connectionString: connectionString
-// });
+ const client = new Client({
+   connectionString: connectionString
+ });
 
-// client.connect();
+ client.connect();
 
 app.listen(port);
 
