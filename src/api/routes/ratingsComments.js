@@ -48,6 +48,9 @@ router.post("/getAverageRating", async(req, res) => {
 
 //create a comment/rating and persist to the database
 router.post("/", async(req, res) => {
+    if (req.body.ratings > 5 || req.body.ratings < 1) {
+        res.status(666).send("Rating must be a value from 1 to 5.");
+    }
     console.log("User ID: " + req.body.user_id);
     console.log("ISBN: " + req.body.isbn);
     console.log("Rating: " + req.body.ratings);
