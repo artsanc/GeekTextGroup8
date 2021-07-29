@@ -17,7 +17,7 @@ router.get("/", async(req, res) => {
 });
 
 //Retrieve Endpoint to get the list of comments and ratings for specified book
-router.post("/getReviews", async(req, res) => {
+router.post("/reviews", async(req, res) => {
     console.log(req.body);
     client.query(
         "SELECT * from ratings_comments where isbn = " + req.body.isbn + "order by ratings desc",
@@ -32,7 +32,7 @@ router.post("/getReviews", async(req, res) => {
 });
 
 //Get average ratings of a specific book
-router.post("/getAverageRating", async(req, res) => {
+router.post("/averageRating", async(req, res) => {
     console.log(req.body);
     client.query(
         "SELECT avg(ratings) from ratings_comments where isbn = " + req.body.isbn,
@@ -46,45 +46,63 @@ router.post("/getAverageRating", async(req, res) => {
     );
 });
 
-//create a comment/rating and persist to the database
-router.post("/", async(req, res) => {
+//create a rating and persist to the database
+router.post("/createRating", async(req, res) => {
     if (req.body.ratings > 5 || req.body.ratings < 1) {
         res.status(666).send("Rating must be a value from 1 to 5.");
     }
     console.log("User ID: " + req.body.user_id);
     console.log("ISBN: " + req.body.isbn);
     console.log("Rating: " + req.body.ratings);
-    console.log("Rating Date: " + req.body.r_date);
-    console.log("Comment: " + req.body.comments);
-    console.log("Comment Date: " + req.body.c_date);
     console.log(
-        "INSERT into ratings_comments (user_id, isbn, ratings, r_date, comments, c_date) VALUES (" +
+        "INSERT into ratings_comments (user_id, isbn, ratings) VALUES (" +
         req.body.user_id +
         ", " +
         req.body.isbn +
         ", " +
         req.body.ratings +
-        ", " +
-        req.body.r_date +
-        ", " +
-        req.body.comments +
-        ", " +
-        req.body.c_date +
         ")"
     );
     client.query(
-        "INSERT into ratings_comments (user_id, isbn, ratings, r_date, comments, c_date) VALUES (" +
+        "call createrating(" +
         req.body.user_id +
         ", " +
         req.body.isbn +
         ", " +
         req.body.ratings +
+        ")",
+        function(err, result) {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err.detail);
+            } else {
+                res.status(200).send("Successfully Created A Comment/Rating");
+            }
+        }
+    );
+});
+
+//create a comment and persist to the database
+router.post("/createComment", async(req, res) => {
+    console.log("User ID: " + req.body.user_id);
+    console.log("ISBN: " + req.body.isbn);
+    console.log("Comment: " + req.body.comments);
+    console.log(
+        "INSERT into ratings_comments (user_id, isbn, comments) VALUES (" +
+        req.body.user_id +
         ", " +
-        req.body.r_date +
+        req.body.isbn +
         ", " +
         req.body.comments +
+        ")"
+    );
+    client.query(
+        "call createcomment(" +
+        req.body.user_id +
         ", " +
-        req.body.c_date +
+        req.body.isbn +
+        ", " +
+        req.body.comments +
         ")",
         function(err, result) {
             if (err) {
