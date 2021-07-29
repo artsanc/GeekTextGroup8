@@ -37,8 +37,12 @@ router.post("/getWish_Lists", async (req, res) => {
   /*console.log(
   "SELECT wish_lists.list_name, books.isbn, books.title, books.description, books.price, books.genre, books.year_published, books.copies_sold, authors.f_name, authors.l_name, authors.publisher FROM wish_lists INNER JOIN wish_list_items ON (wish_lists.list_id = wish_list_items.list_id) INNER JOIN books ON (wish_list_items.isbn = books.isbn) INNER JOIN authors ON (books.author_id = authors.author_id) WHERE user_id = " + req.body.user_id + " AND list_name like '" + req.body.list_name + "'" );*/
   client.query(
-    "SELECT wish_lists.list_name, books.isbn, books.title, books.description, books.price, books.genre, books.year_published, books.copies_sold, authors.f_name, authors.l_name, authors.publisher FROM wish_lists INNER JOIN wish_list_items ON (wish_lists.list_id = wish_list_items.list_id) INNER JOIN books ON (wish_list_items.isbn = books.isbn) INNER JOIN authors ON (books.author_id = authors.author_id) WHERE user_id = " + req.body.user_id + " AND list_name like '" + req.body.list_name + "'",
-    //"SELECT isbn FROM wish_list_items WHERE list_id = (SELECT list_id FROM wish_lists WHERE user_id = " + req.body.user_id + ")", 
+    "SELECT wish_lists.list_name, books.isbn, books.title, books.description, books.price, books.genre, books.year_published, books.copies_sold, authors.f_name, authors.l_name, authors.publisher FROM wish_lists INNER JOIN wish_list_items ON (wish_lists.list_id = wish_list_items.list_id) INNER JOIN books ON (wish_list_items.isbn = books.isbn) INNER JOIN authors ON (books.author_id = authors.author_id) WHERE user_id = " +
+      req.body.user_id +
+      " AND list_name like '" +
+      req.body.list_name +
+      "'",
+    //"SELECT isbn FROM wish_list_items WHERE list_id = (SELECT list_id FROM wish_lists WHERE user_id = " + req.body.user_id + ")",
     function(err, result) {
       if (err) {
         console.log(err);
@@ -50,7 +54,6 @@ router.post("/getWish_Lists", async (req, res) => {
   );
 });
 //------------------------------------------------------------------------------------------------------------------------------
-
 
 //creates a wishlist for a user via user_id
 router.post("/", async (req, res) => {
@@ -70,17 +73,15 @@ router.post("/", async (req, res) => {
         console.log(err);
         res.status(400).send(err.message);
       } else {
-
         res.status(200).send("Successfully created a Wish_List for User");
-      }      
+      }
     }
-  ); 
-  });
+  );
+});
 //-----------------------------------------------------------------------------------------------------------------------------
 
 //adds a book to a shopping cart via cart_id
 router.post("/add", async (req, res) => {
-  
   console.log(req.body.list_id);
   console.log(req.body.isbn);
 
@@ -117,7 +118,6 @@ router.delete("/", (req, res) => {
         res.status(400).send(err.message);
       } else {
         res.status(200).send("Book moved to Shopping Cart");
-        
       }
     }
   );
