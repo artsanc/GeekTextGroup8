@@ -4,16 +4,16 @@ const { Client } = require("pg");
 const pw = "fiu";
 
 const connectionString =
-    "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
+  "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
 
 const client = new Client({
-    connectionString: connectionString
+  connectionString: connectionString
 });
 client.connect();
 
-router.get("/", async(req, res) => {
-    console.log("hola!");
-    res.send("in ratingsComments");
+router.get("/", async (req, res) => {
+  console.log("hola!");
+  res.send("in ratingsComments");
 });
 
 //Retrieve Endpoint to get the list of comments and ratings for specified book
@@ -113,6 +113,7 @@ router.post("/createComment", async(req, res) => {
             }
         }
     );
+
 });
 
 module.exports = router;
