@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Client } = require("pg");
-const pw = "6100325";
+const pw = "0105.Eenajved";
 
 const connectionString =
   "postgres://postgres:" + pw + "@localhost:5432/Bookstore8";
